@@ -11,9 +11,11 @@ export default function Register() {
     e.preventDefault();
     try {
       const body = { username };
-
+// console.log("OKKKK");
       const { data } = await axios.post("http://localhost:3000/register", body);
-      localStorage.setItem("username", data.username);
+      console.log(data);
+      localStorage.setItem("username", data.user.username);
+      localStorage.setItem("access_token", data.access_token);
 
       Toastify({
         text: `Succedd Register`,
@@ -28,8 +30,10 @@ export default function Register() {
         },
         onClick: function () {}, // Callback after click
       }).showToast();
+
       navigate("/");
     } catch (error) {
+        console.log(error);
       Toastify({
         text: error.response.data.message,
         duration: 3000,
