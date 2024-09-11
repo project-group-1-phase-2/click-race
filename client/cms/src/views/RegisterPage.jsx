@@ -11,7 +11,7 @@ export default function Register() {
     e.preventDefault();
     try {
       const body = { username };
-// console.log("OKKKK");
+      // console.log("OKKKK");
       const { data } = await axios.post("http://localhost:3000/register", body);
       console.log(data);
       localStorage.setItem("username", data.user.username);
@@ -33,7 +33,7 @@ export default function Register() {
 
       navigate("/");
     } catch (error) {
-        console.log(error);
+      console.log(error);
       Toastify({
         text: error.response.data.message,
         duration: 3000,
@@ -52,28 +52,28 @@ export default function Register() {
 
   return (
     <>
-      <div className="relative flex flex-col justify-center w-screen min-h-screen overflow-hidden bg-base-200">
-        <div className="w-full p-6 m-auto rounded-lg shadow-md lg:max-w-lg bg-base-100">
-          <h1 className="text-3xl font-semibold text-center text-accent-focus">Log In</h1>
-
-          <form className="space-y-4 mt-5" onSubmit={handleRegister}>
-            <div>
-              <label className="label justify-center">
-                <span className="text-base label-text">Username</span>
+      <div className="flex flex-wrap justify-center ">
+        <div className="bg-white bg-opacity-50 shadow-lg rounded-lg p-8 max-w-md absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <form onSubmit={handleRegister} className="flex flex-col items-center justify-center space-y-4">
+            <div className="mb-4">
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700 text-center">
+                Username
               </label>
-              <input type="text" placeholder="Enter username" className="w-full input input-bordered input-accent" required onChange={(e) => setUsername(e.target.value)} />
+              <input
+                type="text"
+                id="username"
+                name="username"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="input username"
+                onChange={(e)=> setUsername(e.target.value)}
+              />
             </div>
-            <div>
-              <button type="submit" className="btn btn-accent w-full mt-5">
-                Log In
-              </button>
-            </div>
-            <div className="divider px-10 mt-10">OR</div>
-            <Link to="/" className="btn btn-neutral mt-5 w-full">
-              Use Counter
-            </Link>
+            <button type="submit" id="button" className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Daftar
+            </button>
           </form>
         </div>
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/022/606/654/small_2x/speeding-through-the-race-track-generative-ai-photo.jpg" className="w-full h-full" alt="" />
       </div>
     </>
   );
