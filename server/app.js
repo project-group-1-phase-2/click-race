@@ -166,7 +166,7 @@ io.on("connection", (socket) => {
 });
 
 function startRoomTimer(room) {
-  let timer = 2;
+  let timer = 10;
 
   timers[room] = setInterval(() => {
     timer--;
