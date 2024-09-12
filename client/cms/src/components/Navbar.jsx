@@ -21,8 +21,11 @@ export default function Navbar() {
               </svg>
             </div>
           </div>
-          <Link to="/" className="btn btn-ghost text-xl">
+          <Link to="/" className="btn btn-ghost text-xl text-white">
             Click Race
+          </Link>
+          <Link to="/highScore" className="btn btn-ghost text-xl text-white">
+            High Score
           </Link>
         </div>
         <ul>
