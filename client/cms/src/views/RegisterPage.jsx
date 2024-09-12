@@ -15,7 +15,7 @@ export default function Register() {
       console.log(data);
       localStorage.setItem("username", data.user.username);
       localStorage.setItem("access_token", data.access_token);
-      localStorage.setItem('userId', data.user.id)
+      localStorage.setItem("userId", data.user.id);
 
       Toastify({
         text: `Succedd Register`,
@@ -52,28 +52,24 @@ export default function Register() {
 
   return (
     <>
-      <div className="flex flex-wrap justify-center ">
-        <div className="bg-white bg-opacity-50 shadow-lg rounded-lg p-8 max-w-md absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <form onSubmit={handleRegister} className="flex flex-col items-center justify-center space-y-4">
-            <div className="mb-4">
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 text-center">
-                Username
-              </label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                placeholder="input username"
-                onChange={(e)=> setUsername(e.target.value)}
-              />
-            </div>
-            <button type="submit" id="button" className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              Daftar
+    <div class="body">
+      <div class="Ring">
+        <i style={{ color: "#00ff0a" }}></i>
+        <i style={{ color: "#ff0057" }}></i>
+        <i style={{ color: "#f8e80c" }}></i>
+        <form onSubmit={handleRegister} class="login">
+          <h2>Login</h2>
+          <div class="inputBox">
+            <input type="text" id="Username" name="Username" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
+          </div>
+          <div class="inputBox">
+            <button className="btn" type="submit" id="button" value="Sign in">
+
+              SUBMIT
             </button>
-          </form>
-        </div>
-        <img src="https://static.vecteezy.com/system/resources/thumbnails/022/606/654/small_2x/speeding-through-the-race-track-generative-ai-photo.jpg" className="w-full h-full" alt="" />
+          </div>
+        </form>
+      </div>
       </div>
     </>
   );

@@ -140,17 +140,17 @@ export default function HomePage({ socket }) {
       <div className="text-4xl mb-4">{timer}</div>
 
       {/* Action Buttons */}
+
       <div className="flex items-center justify-center space-x-8 mb-4">
-        <button
-          onClick={handleAdd}
-          className="bg-green-500 rounded-full w-20 h-20"
-        >
-          Add
-        </button>
-        <button
-          onClick={handleVote}
-          className="bg-gray-800 rounded-full w-20 h-20"
-        ></button>
+        {timer === 0 || timer < 11 && timer >= 10 ? (
+          <button onClick={handleVote} className="bg-gray-800 rounded-full w-20 h-20">
+            Vote
+          </button>
+        ) : (
+          <button onClick={handleAdd} className="bg-green-500 rounded-full w-20 h-20">
+            Add
+          </button>
+        )}
       </div>
     </div>
   );
