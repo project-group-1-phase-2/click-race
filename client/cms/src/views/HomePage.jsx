@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 
-import dinoA from "../assets/DinoSprites_tard.gif";
-import dinoB from "../assets/DinoSprites_vita.gif";
+import dinoA from "../assets/DinoDiem.png";
+import dinoB from "../assets/DinoDiemIjo.png";
 import axios from "axios";
+import background from "../assets/bg.png";
 
 export default function HomePage({ socket }) {
-
   const [myCount, setMyCount] = useState(0);
   const [otherCount, setOtherCount] = useState(0);
   const [room, setRoom] = useState("");
@@ -119,23 +119,26 @@ export default function HomePage({ socket }) {
   console.log(myCount);
 
   return (
-    <div
-      className="text-center w-screen h-screen "
-      
-    >
-      <h1 className="text-4xl font-bold mb-4">CLICKY Dino</h1>
+    <div className="text-center w-screen h-screen ">
+      <img
+        className="w-full h-full object-cover absolute  left-5 z-[-1]  "
+        src={background}
+        alt="background"
+      />
 
       {/* Scores and Timer */}
-      <div className="grid grid-cols-2 gap-10 mb-4">
+      <div className="flex justify-center space-x-10 mb-10 pt-12">
         {/* Player 1 */}
-        <div >
-          <p className="text-6xl font-bold">{myCount}</p>
-          <img src={dinoA} alt="Superman Dino" className="w-24 h-24 mb-4" />
+        <div>
+          <p className="text-6xl font-bold mb-12">{myCount}</p>
+          <p className="text-2xl font-bold">nama</p>
+          <img src={dinoA} alt="Superman Dino" className="w-28 h-28 mb-12" />
         </div>
         {/* Player 2 */}
         <div>
-          <p className="text-6xl font-bold">{otherCount}</p>
-          <img src={dinoB} alt="Batman Dino" className="w-24 h-24 mb-4" />
+          <p className="text-6xl font-bold mb-12">{otherCount}</p>
+          <p className="text-2xl font-bold">nama</p>
+          <img src={dinoB} alt="Batman Dino" className="w-28 h-28 mb-12" />
         </div>
       </div>
 
