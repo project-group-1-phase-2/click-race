@@ -1,29 +1,33 @@
-import { createBrowserRouter, redirect } from "react-router-dom"; 
+import { createBrowserRouter, redirect } from "react-router-dom";
 import Register from "../views/RegisterPage";
 import BaseLayout from "../components/BaseLayout";
 import HomePage from "../views/HomePage";
-const router = createBrowserRouter(
-    [
-        {
-            path : '/register',
-            element : <Register/>
-        },
-        {
-            element : <BaseLayout/>,
-            loader : () => {
-                if(!localStorage.username){
-                    return redirect('/register')
-                }
-                return null
-            },
-            children : [
-                {
-                    path : "/",
-                    element : <HomePage/>
-                }
-            ]
-        }
-    ]
-)
+import { io } from "socket.io-client";
 
-export default router
+const socket = io("http://localhost:3000", {
+  autoConnect: false,
+});
+
+const router = createBrowserRouter([
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    element: <BaseLayout />,
+    loader: () => {
+      if (!localStorage.username) {
+        return redirect("/register");
+      }
+      return null;
+    },
+    children: [
+      {
+        path: "/",
+        element: <HomePage socket={socket}/>,
+      },
+    ],
+  },
+]);
+
+export default router;
