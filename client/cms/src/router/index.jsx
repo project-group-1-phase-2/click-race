@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   {
     element: <BaseLayout />,
     loader: () => {
-      if (!localStorage.username) {
+      if (!localStorage.access_token) {
         return redirect("/register");
       }
       return null;
