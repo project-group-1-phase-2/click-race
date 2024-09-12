@@ -12,7 +12,7 @@ export default function Navbar() {
   }
   return (
     <>
-      <div className="navbar bg-black " data-theme={theme[currentTheme].dataTheme}>
+      <div className="navbar " data-theme={theme[currentTheme].dataTheme}>
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -21,10 +21,10 @@ export default function Navbar() {
               </svg>
             </div>
           </div>
-          <Link to="/" className="btn btn-ghost text-xl text-white">
+          <Link to="/" className="btn btn-ghost text-xl">
             Click Race
           </Link>
-          <Link to="/highScore" className="btn btn-ghost text-xl text-white">
+          <Link to="/highScore" className="btn btn-ghost text-xl">
             High Score
           </Link>
         </div>

@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from "react";
-import { themeMode } from "../context/ThemeMode";
+
 import dinoA from "../assets/DinoSprites_tard.gif";
 import dinoB from "../assets/DinoSprites_vita.gif";
 import axios from "axios";
 
 export default function HomePage({ socket }) {
-  const { currentTheme, theme } = useContext(themeMode);
+
   const [myCount, setMyCount] = useState(0);
   const [otherCount, setOtherCount] = useState(0);
   const [room, setRoom] = useState("");
@@ -119,13 +119,16 @@ export default function HomePage({ socket }) {
   console.log(myCount);
 
   return (
-    <div className="text-center" data-theme={theme[currentTheme]?.dataTheme}>
+    <div
+      className="text-center w-screen h-screen "
+      
+    >
       <h1 className="text-4xl font-bold mb-4">CLICKY Dino</h1>
 
       {/* Scores and Timer */}
       <div className="grid grid-cols-2 gap-10 mb-4">
         {/* Player 1 */}
-        <div>
+        <div >
           <p className="text-6xl font-bold">{myCount}</p>
           <img src={dinoA} alt="Superman Dino" className="w-24 h-24 mb-4" />
         </div>
@@ -137,18 +140,26 @@ export default function HomePage({ socket }) {
       </div>
 
       {/* Timer */}
-      <div className="text-4xl mb-4">{timer}</div>
+      <span className="countdown font-mono text-6xl">
+        <span style={{ "--value": `${timer}` }}></span>
+      </span>
 
       {/* Action Buttons */}
 
       <div className="flex items-center justify-center space-x-8 mb-4">
-        {timer === 0 || timer < 11 && timer >= 10 ? (
-          <button onClick={handleVote} className="bg-gray-800 rounded-full w-20 h-20">
-            Vote
+        {timer === 0 || (timer < 11 && timer >= 10) ? (
+          <button
+            onClick={handleVote}
+            className="bg-gray-800 rounded-full w-20 h-20"
+          >
+            READY
           </button>
         ) : (
-          <button onClick={handleAdd} className="bg-green-500 rounded-full w-20 h-20">
-            Add
+          <button
+            onClick={handleAdd}
+            className="bg-green-500 rounded-full w-20 h-20"
+          >
+            CLICK
           </button>
         )}
       </div>
