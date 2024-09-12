@@ -1,10 +1,5 @@
 const express = require("express");
-const {
-  register,
-  getAllScore,
-  addScore,
-  getMyScore,
-} = require("./controllers/GlobalController");
+const { register, getAllScore, addScore, getMyScore } = require("./controllers/GlobalController");
 const { authorization } = require("./middleware/auth");
 const { createServer } = require("node:http");
 const { Server } = require("socket.io");
@@ -40,6 +35,8 @@ app.use(authorization);
 io.on("connection", (socket) => {
   let assignedRoom = null;
 
+  const username = socket.handshake.auth.username;
+
   for (const room in rooms) {
     if (rooms[room].length === 1) {
       assignedRoom = room;
@@ -61,6 +58,14 @@ io.on("connection", (socket) => {
   roomCounters[`room-${assignedRoom}`][socket.id] = 0;
   score[`room-${assignedRoom}`][socket.id] = 0;
   vote[`room-${assignedRoom}`][socket.id] = 0;
+
+  const otherUserId = rooms[assignedRoom].find((id) => id !== socket.id);
+  const otherUsername = otherUserId ? io.sockets.sockets.get(otherUserId)?.handshake.auth.username : null;
+
+  io.to(`room-${assignedRoom}`).emit("usernames", {
+    myName: username,
+    otherName: otherUsername || "Waiting for another player...",
+  });
 
   socket.emit("message", `You have joined room ${assignedRoom}`);
 
