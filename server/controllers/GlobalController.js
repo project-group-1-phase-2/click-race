@@ -32,7 +32,12 @@ class GlobalController {
 
   static async getAllScore(req, res, next) {
     try {
-      const score = Score.findAll();
+      
+      const score = await Score.findAll({
+        include : User,
+        limit : 10,
+        order : [["score", "DESC"]]
+      });
 
       res.status(200).json(score);
     } catch (error) {
