@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 
-import dinoA from "../assets/DinoDiem.png";
-import dinoB from "../assets/DinoDiemIjo.png";
+import dinoA from "../assets/DinoSprites_tard.gif";
+import dinoB from "../assets/DinoSprites_vita.gif";
 import axios from "axios";
 import background from "../assets/bg.png";
 
@@ -35,7 +35,7 @@ export default function HomePage({ socket }) {
   function handleScore() {
     if (room) {
       axios.post(
-        "http://localhost:3000/score",
+        "https://click.daseas.cloud/score",
         { score: myScore },
         {
           headers: {
@@ -114,7 +114,7 @@ export default function HomePage({ socket }) {
 
     return () => {
       socket.off("message");
-      socket.off("usernames");
+      socket.off('usernames')
       socket.off("count:update");
       socket.off("timer:update");
       socket.disconnect();
@@ -136,20 +136,21 @@ export default function HomePage({ socket }) {
 
   return (
     <div className="text-center w-screen h-screen ">
-      <img className="w-full h-full object-cover absolute  left-5 z-[-1]  " src={background} alt="background" />
+      <img className="w-screen h-screen object-cover absolute  left-5 z-[-1]  " src={background} alt="background" />
 
       {/* Scores and Timer */}
-      <div className="flex justify-center space-x-10 mb-10 pt-24">
+      <div className="flex justify-center space-x-10 mb-10 pt-52">
+        {/* Player 1 */}
         <div>
-          <h2 className="text-2xl">{myName || "You"}</h2>
-          <p className="text-6xl font-bold">{myCount}</p>
-          <img src={dinoA} alt="Superman Dino" className="w-24 h-24 mb-4" />
-        </div>
-        <div>
-          <h2 className="text-2xl">{otherName || "Waiting..."}</h2>
-          <p className="text-6xl font-bold">{otherCount}</p>
-          <img src={dinoB} alt="Batman Dino" className="w-24 h-24 mb-4" />
-        </div>
+        <h2 className="text-2xl">You</h2>
+        <p className="text-6xl font-bold">{myCount}</p>
+        <img src={dinoA} alt="Superman Dino" className="w-24 h-24 mb-4" />
+      </div>
+      <div>
+        <h2 className="text-2xl">{otherName === localStorage.getItem('username') ? myName : otherName}</h2>
+        <p className="text-6xl font-bold">{otherCount}</p>
+        <img src={dinoB} alt="Batman Dino" className="w-24 h-24 mb-4" />
+      </div>
       </div>
 
       {/* Timer */}

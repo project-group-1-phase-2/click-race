@@ -5,7 +5,7 @@ import HomePage from "../views/HomePage";
 import { io } from "socket.io-client";
 import ScorePage from "../views/ScorePage";
 
-const socket = io("http://localhost:3000", {
+const socket = io("https://click.daseas.cloud/", {
   autoConnect: false,
 });
 
