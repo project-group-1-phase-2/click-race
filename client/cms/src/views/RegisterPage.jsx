@@ -58,7 +58,7 @@ export default function Register() {
         <i style={{ color: "#ff0057" }}></i>
         <i style={{ color: "#f8e80c" }}></i>
         <form onSubmit={handleRegister} class="login">
-          <h2>Login</h2>
+          <h2>Register</h2>
           <div class="inputBox">
             <input type="text" id="Username" name="Username" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
           </div>

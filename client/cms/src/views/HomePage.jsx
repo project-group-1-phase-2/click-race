@@ -15,6 +15,8 @@ export default function HomePage({ socket }) {
   const [myVote, setMyVote] = useState(0);
   const [myScore, setMyScore] = useState(0);
   const [otherScore, setOtherScore] = useState(0);
+  const [myName, setMyName] = useState("");
+  const [otherName, setOtherName] = useState("");
   const [score, setScore] = useState(0);
 
   function handleAdd() {
@@ -46,6 +48,14 @@ export default function HomePage({ socket }) {
   }
 
   useEffect(() => {
+    const username = localStorage.getItem("username");
+    setMyName(username);
+
+    socket.auth = {
+      access_token: localStorage.getItem("access_token"),
+      username: username,
+    };
+
     socket.connect();
 
     socket.on("message", (message) => {
@@ -60,6 +70,11 @@ export default function HomePage({ socket }) {
       } else {
         setIsWaiting(false);
       }
+    });
+
+    socket.on("usernames", (names) => {
+      setMyName(names.myName);
+      setOtherName(names.otherName);
     });
 
     socket.on("count:update", (counts, score) => {
@@ -99,6 +114,7 @@ export default function HomePage({ socket }) {
 
     return () => {
       socket.off("message");
+      socket.off("usernames");
       socket.off("count:update");
       socket.off("timer:update");
       socket.disconnect();
@@ -120,25 +136,19 @@ export default function HomePage({ socket }) {
 
   return (
     <div className="text-center w-screen h-screen ">
-      <img
-        className="w-full h-full object-cover absolute  left-5 z-[-1]  "
-        src={background}
-        alt="background"
-      />
+      <img className="w-full h-full object-cover absolute  left-5 z-[-1]  " src={background} alt="background" />
 
       {/* Scores and Timer */}
-      <div className="flex justify-center space-x-10 mb-10 pt-12">
-        {/* Player 1 */}
+      <div className="flex justify-center space-x-10 mb-10 pt-24">
         <div>
-          <p className="text-6xl font-bold mb-12">{myCount}</p>
-          <p className="text-2xl font-bold">nama</p>
-          <img src={dinoA} alt="Superman Dino" className="w-28 h-28 mb-12" />
+          <h2 className="text-2xl">{myName || "You"}</h2>
+          <p className="text-6xl font-bold">{myCount}</p>
+          <img src={dinoA} alt="Superman Dino" className="w-24 h-24 mb-4" />
         </div>
-        {/* Player 2 */}
         <div>
-          <p className="text-6xl font-bold mb-12">{otherCount}</p>
-          <p className="text-2xl font-bold">nama</p>
-          <img src={dinoB} alt="Batman Dino" className="w-28 h-28 mb-12" />
+          <h2 className="text-2xl">{otherName || "Waiting..."}</h2>
+          <p className="text-6xl font-bold">{otherCount}</p>
+          <img src={dinoB} alt="Batman Dino" className="w-24 h-24 mb-4" />
         </div>
       </div>
 
@@ -151,17 +161,11 @@ export default function HomePage({ socket }) {
 
       <div className="flex items-center justify-center space-x-8 mb-4">
         {timer === 0 || (timer < 11 && timer >= 10) ? (
-          <button
-            onClick={handleVote}
-            className="bg-gray-800 rounded-full w-20 h-20"
-          >
+          <button onClick={handleVote} className="bg-gray-800 rounded-full w-20 h-20">
             READY
           </button>
         ) : (
-          <button
-            onClick={handleAdd}
-            className="bg-green-500 rounded-full w-20 h-20"
-          >
+          <button onClick={handleAdd} className="bg-green-500 rounded-full w-20 h-20">
             CLICK
           </button>
         )}
