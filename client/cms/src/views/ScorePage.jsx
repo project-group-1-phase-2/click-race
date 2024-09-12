@@ -7,7 +7,7 @@ export default function ScorePage() {
   const [highScore, setHighScore] = useState([]);
   async function score() {
     try {
-      const { data } = await axios.get("http://localhost:3000/score", {
+      const { data } = await axios.get("https://click.daseas.cloud/score", {
         headers: {
           Authorization: `Bearer ${localStorage.access_token}`,
         },
