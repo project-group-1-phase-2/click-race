@@ -11,11 +11,11 @@ export default function Register() {
     e.preventDefault();
     try {
       const body = { username };
-      // console.log("OKKKK");
       const { data } = await axios.post("http://localhost:3000/register", body);
       console.log(data);
       localStorage.setItem("username", data.user.username);
       localStorage.setItem("access_token", data.access_token);
+      localStorage.setItem('userId', data.user.id)
 
       Toastify({
         text: `Succedd Register`,
